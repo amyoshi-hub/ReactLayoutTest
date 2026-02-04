@@ -6,21 +6,30 @@ body, html {
   margin: 0; padding: 0;
   height: 100vh; width: 100vw;
   overflow: hidden;
-  background: #111;
-  color:white
+  background: hsl(0, 0%, 7%);
+  color:white;
 }
 
 .editor-layout {
   display: grid;
-  grid-template-columns: 260px 1fr 300px;
-  grid-template-rows: 1fr 260px;
+
+  --hierarchy-width: 260px;
+  --inspector-width: 300px;
+  --assets-height: 260px;
+
+  grid-template-columns: var(--hierarchy-width) 1fr var(--inspector-width);
+  grid-template-rows: 1fr var(--assets-height);
   height: 100vh;
+  user-select: none;
 }
 
-#hierarchy { grid-area: 1 / 1 / 2 / 2; }
+#hierarchy { grid-area: 1 / 1 / 2 / 2; cursor: w-resize;}
 #scene { grid-area: 1 / 2 / 2 / 3; }
-#assets { grid-area: 2 / 1 / 3 / 3;}
-#inspector { grid-area: 1 / 3 / 3 / 4; }
+#assets { grid-area: 2 / 1 / 3 / 3; cursor: ns-resize;}
+#inspector { 
+  grid-area: 1 / 3 / 3 / 4;
+  cursor: w-resize;
+}
 
 .panel {
   border: 1px solid var(--border-color);
@@ -28,6 +37,11 @@ body, html {
   flex-direction: column;
   min-width: 0; min-height : 0; 
   overflow: auto;
+  position: relative;
+}
+
+.panel:hover {
+  cursor: auto;
 }
 
 #scene {
